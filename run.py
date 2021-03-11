@@ -1,9 +1,11 @@
 import pandas as pd
 import json
 import os
-
+from categories import get_categories_dict
 
 def main():
+    get_categories_dict()
+    exit(-4561)
     gb_videos = pd.read_csv(os.path.join("youtube_data", "GB_videos_5p.csv"), sep=";")
     print(gb_videos.head(20))
     print(gb_videos.shape)
