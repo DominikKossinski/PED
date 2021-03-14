@@ -1,4 +1,5 @@
 import re
+from copy import deepcopy
 
 import nltk
 from nltk.corpus import stopwords
@@ -10,7 +11,7 @@ RE_EMOTICONS = re.compile("(:-?\))|(:p)|(:d+)|(:-?\()|(:/)|(;-?\))|(<3)|(=\))|(\
 RE_HTTP = re.compile("http(s)?://[/\.a-z0-9]+")
 nltk.download('stopwords')
 
-stopwords = stopwords.words('english')
+stop_words = stopwords.words('english')
 
 
 class Tokenizer:
@@ -44,9 +45,12 @@ class Tokenizer:
                 i += 1
             else:
                 del tokens[i]
-                tokens[i:i] = nltk.word_tokenize(token)
-                i += 1
+                for character in string.punctuation:
+                    token = token.replace(character, '')
+                if token:
+                    tokens[i:i] = nltk.word_tokenize(token)
+                    i += 1
 
         stemmer = nltk.SnowballStemmer("english", ignore_stopwords=False)
-        tokens = [stemmer.stem(token) for token in tokens if token not in stopwords and token not in string.punctuation]
+        tokens = [stemmer.stem(token) for token in tokens if token not in stop_words]
         return tokens

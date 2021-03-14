@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def split(file_name):
+def split_csv(file_name):
     df = pd.read_csv(file_name, index_col=0)
     print(df)
     n = len(df)
@@ -20,5 +20,5 @@ def join(file_name):
     print(head)
 
 if __name__ == '__main__':
-    split("description_words.csv")
+    split_csv("description_words.csv")
     join("description_words.csv")
