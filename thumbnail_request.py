@@ -5,11 +5,8 @@ from tqdm import tqdm
 import requests
 
 
-def my_bar(current, total, width):
-    print(f"Downloading {round(current / total * 100)}% ({current}/{total}) bytes: (", end="\r", flush=True)
-
-
-if __name__ == '__main__':
+def download(name: str):
+    os.makedirs(name, exist_ok=True)
     gb_videos = pd.read_csv(os.path.join("youtube_data", "GB_videos_5p.csv"), sep=";")
     us_videos = pd.read_csv(os.path.join("youtube_data", "US_videos_5p.csv"), sep=";")
     videos = pd.concat([gb_videos, us_videos])
@@ -18,7 +15,8 @@ if __name__ == '__main__':
     for i in tqdm(range(len(videos))):
         link = videos["thumbnail_link"].iloc[i]
         id = videos["video_id"].iloc[i]
-        thumbnail_path = os.path.join("thumbnails", f"{i}.jpg")
+        link = link.replace("default", name)
+        thumbnail_path = os.path.join(name, f"{i}.jpg")
         try:
             response = requests.get(link, allow_redirects=True)
             if response.status_code != 200:
@@ -43,6 +41,11 @@ if __name__ == '__main__':
                     file.close()
         except Exception as e:
             print(e)
-    videos_images.to_csv("thumbnails.csv")
-    # hqdefault - TODO bigger
-    # maxresdefault - TODO max size
+    videos_images.to_csv(f"{name}.csv")
+
+
+if __name__ == '__main__':
+    download("hqdefault")
+    # default - default size
+    # hqdefault - bigger size
+    # maxresdefault - max size
