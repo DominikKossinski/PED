@@ -12,8 +12,15 @@ import math
 
 
 def main():
-    gb_videos = pd.read_csv(os.path.join("youtube_data", "GB_videos_5p.csv"), sep=";")
-    us_videos = pd.read_csv(os.path.join("youtube_data", "US_videos_5p.csv"), sep=";")
+    gb_videos = pd.read_csv(os.path.join("youtube_data_with_new_id", "GB_videos_5p.csv"), sep=";")
+    us_videos = pd.read_csv(os.path.join("youtube_data_with_new_id", "US_videos_5p.csv"), sep=";")
+    videos = pd.concat([gb_videos, us_videos])
+    videos = videos.rename(columns={"description ": "description"})
+
+    grouped_by_id = videos.groupby(["new_video_id"])
+    print(grouped_by_id["trending_date"].nunique())
+
+    exit(-123)
     videos = pd.concat([gb_videos, us_videos])
     videos = videos.rename(columns={"description ": "description"})
     description_counts = videos["description"].value_counts()
