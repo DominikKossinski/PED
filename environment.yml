@@ -1,0 +1,15 @@
+name: PED
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - pandas
+  - jupyter
+  - matplotlib
+  - nltk
+  - wget
+  - requests
+  - tensorflow-gpu
+  - tensorflow-hub
+  - cudatoolkit
+
