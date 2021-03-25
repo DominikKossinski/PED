@@ -66,7 +66,7 @@ def download_videos_images(videos: pd.DataFrame, prefix: str, size: ImageSize, p
                           "status": [statuses]})
             )
 
-    videos_images.to_csv(os.path.join(path, f"{prefix}{size}.csv"))
+    videos_images.to_csv(os.path.join(path, f"{prefix}{size}.csv"), sep=";")
     videos_images.to_pickle(os.path.join(path, f"{prefix}{size}.plk"))
 
 

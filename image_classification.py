@@ -1,58 +1,99 @@
 import os
-import pandas as pd
 
+import numpy as np
+import pandas as pd
 import tensorflow as tf
 import tensorflow_hub as hub
-import numpy as np
 from PIL import Image
+
+from object_detection.utils import label_map_util
+from tqdm import tqdm
 
 from images_downloading import ImageSize
 
 
-def get_top_k(classes, scores, k):
-    top_classes = classes.numpy()[:k]
-    names = []
-    print(f"Top classes: {top_classes}")
-    # for c in top_classes:
-    #     names.append(classes_names[c]) TODO
-    return names, scores.numpy()[:k]
+def detect_objects(model, category_index, df: pd.DataFrame, file_name:str):
+    min_score = 0.5
+    image_size = (512, 512)
+    all_names = []
+    all_scores = []
+    for _, row in tqdm(df.iterrows()):
+        # print(row["thumbnail_path"])
+        row_names = []
+        row_scores = []
+        for path, error in zip(eval(row["thumbnail_path"]), eval(row["error"])):
+            if not error:
+                # print(path)
+                image = Image.open(path)
+                array = tf.keras.preprocessing.image.img_to_array(image)
+                array = array  # / 255.0
+                array = tf.image.resize(array, image_size)
+                array = np.array([array])
+                results = model(array)
+                result = {key: value.numpy() for key, value in results.items()}
+
+                # label_id_offset = 0
+                image_np_with_detections = array.copy()
+
+                # image_np_with_detections = image_np_with_detections[0]
+                scores = result['detection_scores'][0]
+                scores = scores[scores > min_score]
+
+                # boxes = result['detection_boxes'][0]
+                # boxes = boxes[:scores.shape[0]]
+
+                classes_ids = result['detection_classes'][0]
+                classes_ids = classes_ids[:scores.shape[0]]
+                classes_names = [category_index[class_id]['name'] for class_id in classes_ids]
+                # print(classes_ids)
+                # print(classes_names)
+                # print(scores)
+                for name, score in zip(classes_names, scores):
+                    row_names.append(name)
+                    row_scores.append(score)
+
+                # print(boxes)
+                # viz_utils.visualize_boxes_and_labels_on_image_array(
+                #     image_np_with_detections,
+                #     boxes,
+                #     (classes_ids + label_id_offset).astype(int),
+                #     scores,
+                #     category_index,
+                #     use_normalized_coordinates=True,
+                #     max_boxes_to_draw=200,
+                #     min_score_thresh=.30,
+                #     agnostic_mode=False)
+                #
+                # plt.figure(figsize=(24, 32))
+                # plt.imshow(image_np_with_detections.astype(dtype=np.int))
+                # plt.savefig(f"abc_{row['number']}.png")
+                # plt.show()
+                # print("\n")
+        all_names.append(row_names)
+        all_scores.append(row_scores)
+    df["obj_names"] = all_names
+    df["obj_scores"] = all_scores
+    df.to_csv(file_name, sep=";")
 
 
-if __name__ == '__main__':
+def main():
+    # TODO args
+    tf.get_logger().setLevel('ERROR')
+    PATH_TO_LABELS = "mscoco_label_map.pbtxt"
+    category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS, use_display_name=True)
+    model_handle = "https://tfhub.dev/tensorflow/centernet/hourglass_512x512_kpts/1"
     print(tf.test.gpu_device_name())
     size = ImageSize.maxresdefault.value
     images_path = os.path.join("images")
-    gb_images = pd.read_pickle(os.path.join(images_path, f"GB_{size}.plk"))
-    us_images = pd.read_pickle(os.path.join(images_path, f"US_{size}.plk"))
-    k = 5
-    image_size = (1024, 1024)
-    # model = tf.keras.applications.resnet50.ResNet50()
-    print("ok")
-    detector = hub.load("https://tfhub.dev/tensorflow/faster_rcnn/inception_resnet_v2_1024x1024/1")
+    us_images = pd.read_csv(os.path.join(images_path, f"US_{size}.csv"), sep=";", index_col=0)
+    gb_images = pd.read_csv(os.path.join(images_path, f"GB_{size}.csv"), sep=";", index_col=0)
+    names = [f"GB_{size}_object_detection.csv", f"US_{size}_object_detection.csv"]
+    data = [gb_images, us_images]
 
-    for _, row in gb_images.iterrows():
-        for path, error in zip(row["thumbnail_path"], row["error"]):
-            if not error:
-                print(path)
-                image = Image.open(path)
-                array = tf.keras.preprocessing.image.img_to_array(image)
-                # array = array  # / 255.0
-                # array = tf.image.resize(array, size)
-                array = np.array([array])
-                detector_output = detector(array)
-                print(detector_output.keys())
-                det_scores = detector_output["detection_scores"][0]
-                class_ids = detector_output["detection_classes"][0]
-                detection_boxes = detector_output["detection_boxes"][0]
-                names, scores = get_top_k(class_ids, det_scores, 5)
-                # pred = model.predict(array)
-                # top_k = tf.keras.applications.resnet50.decode_predictions(pred, k)[0]
-                # classes = list(map(lambda x: (x[1], x[2] * 100), top_k))
-                image.show()
-                print(names)
-                print(scores)
-                print(detection_boxes)
-                print("\n")
-                input()
-        if row["number"] == 20:
-            break
+    model = hub.load(model_handle)
+    for df, name in zip(data, names):
+        detect_objects(model, category_index, df, name)
+
+
+if __name__ == '__main__':
+    main()
