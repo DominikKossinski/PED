@@ -51,7 +51,7 @@ def main(args) -> None:
     os.makedirs(png_path, exist_ok=True)
     gb_images = pd.read_csv(os.path.join(images_path, f"GB_{size}.csv"), sep=";", index_col=0)
     us_images = pd.read_csv(os.path.join(images_path, f"US_{size}.csv"), sep=";", index_col=0)
-    names = [f"GB_{size}_object_detection.csv", f"US_{size}_object_detection.csv"]
+    names = [f"GB_{size}_ocr.csv", f"US_{size}_ocr.csv"]
     data = [gb_images, us_images]
 
     for df, name in zip(data, names):
