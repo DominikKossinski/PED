@@ -27,6 +27,15 @@ if __name__ == '__main__':
     gb_images["emotions"] = gb_emotions["emotions"]
     us_images["emotions"] = us_emotions["emotions"]
 
+    colors = "colors"
+    colors_path = os.path.join(colors, size)
+    gb_colors = pd.read_csv(os.path.join(colors_path, f"GB_{size}_{colors}.csv"), sep=";", index_col=0)
+    us_colors = pd.read_csv(os.path.join(colors_path, f"US_{size}_{colors}.csv"), sep=";", index_col=0)
+    print(f"Emotions: {gb_colors.columns}")
+
+    gb_images["colors"] = gb_colors["colors"]
+    us_images["colors"] = us_colors["colors"]
+
     print(gb_images.head())
     print(gb_images.columns)
 
