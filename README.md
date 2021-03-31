@@ -1,5 +1,12 @@
 # Projekt Eksploracja danych - YouTube trending videos
 
+### Pliki z rozwiązaniami poszczególnych etapów:
+
+- ETAP 1 - **PED_1.ipynb**
+- ETAP 2 - **PED_2.ipynb**
+
+### Instrukcje uruchomiania poszczególnych skryptów
+
 Skrypt do uzupełniania brakujących id wyznacza on id na podstawie linku do obrazka filmu. Uruchomienie:
 
 ```commandline
