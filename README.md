@@ -8,46 +8,26 @@ Pliki z rozwiązaniami poszczególnych etapów znajdują się w folderze *notebo
 - ETAP 2 - **PED_2.ipynb**
 - ETAP 3 - **PED_3.ipynb**
 
-### Instrukcje uruchomiania poszczególnych skryptów
+## Etap 1
 
-Skrypt do uzupełniania brakujących id wyznacza on id na podstawie linku do obrazka filmu. Uruchomienie:
+Całość zrealizowana w ramach notebooka.
 
-```commandline
-python preprocess_ids.py
-```
+## Etap 2
 
-Skrypt do grupowania danych po id (wymaga wcześniejszego uruchomienia skryptu do uzupełniania id). Grupuje dane po
-wygenerowanym atrybucie **new_video_id**, który jest kopią atrybutu
-**video_id** albo jest pozyskiwany z **thumbnail_link**.
+Poszczególne skrypty znajdują się w folderze *ped2* wraz z opisem w pliku *README.md*.
 
-```commandline
-python group_data.py
-```
+Podsumowanie etapu znajduje się w wymienionym notebooku.
 
-Skrypt do pobierania obrazków filmów (wymaga wcześniejszego uruchomienia skrypty do grupowania) pobiera unikalne obrazy
-ze zbioru filmów i zapisuje je w folderze **images**. Pozwala na pobranie obrazów w trzech rozmiarach.
+## Etap 3
 
-```commandline
-python images_downloading.py
-    -h, --help                                  show this help message and exit
-    --size {default,hqdefault,maxresdefault}    Image size
-```
+Poszczególne skrypty znajdują się w folderze *ped3* wraz z opisem w pliku
+*README.md*
 
-Skrypt do czytania tekstu na obrazach.
+Podsumowanie etapu znajduje się w notebooku.
 
-```commandline
-python ocr_processing.py
-    -h, --help                                  show this help message and exit
-    --size {default,hqdefault,maxresdefault}    Image size
-```
 
-Skrypt do sprawdzania emocji na obrazach.
 
-```commandline
-python extract_emotions.py
-    -h, --help                                  show this help message and exit
-    --size {default,hqdefault,maxresdefault}    Image size
-```
+
 
 
 

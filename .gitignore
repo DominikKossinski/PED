@@ -1,6 +1,5 @@
 .idea
-description_words.csv
+words/description_words.csv
 thumbnails
 /hqdefault
-images
-ocr/maxresdefault
+/images
