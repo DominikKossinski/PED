@@ -1,9 +1,12 @@
 # Projekt Eksploracja danych - YouTube trending videos
 
-### Pliki z rozwiązaniami poszczególnych etapów:
+### Rozwiązania poszczególnych etapów
+
+Pliki z rozwiązaniami poszczególnych etapów znajdują się w folderze *notebooks* i przyjmują określone nazwy dla etapów:
 
 - ETAP 1 - **PED_1.ipynb**
 - ETAP 2 - **PED_2.ipynb**
+- ETAP 3 - **PED_3.ipynb**
 
 ### Instrukcje uruchomiania poszczególnych skryptów
 
