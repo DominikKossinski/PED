@@ -20,5 +20,5 @@ def join(file_name):
     print(head)
 
 if __name__ == '__main__':
-    split_csv("description_words.csv")
-    join("description_words.csv")
+    split_csv("words/description_words.csv")
+    join("words/description_words.csv")

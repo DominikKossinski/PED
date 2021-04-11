@@ -1,11 +1,8 @@
 import pandas as pd
 import json
 import os
-from categories import get_categories_dict
 import string
-from tokenizers import Tokenizer, stop_words, RE_EMOTICONS,RE_HTTP, RE_HASHTAG
-import nltk
-import re
+from helpers.tokenizers import Tokenizer
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import math
@@ -56,7 +53,7 @@ def main():
         if i == 20_000:
             break
     words.to_csv("description_words_test.csv")
-    with open("tokenized_descriptions_test.json", "w") as file:
+    with open("tokenized/tokenized_descriptions_test.json", "w") as file:
         json.dump(tokenized_descriptions_test, file)
         file.close()
 
