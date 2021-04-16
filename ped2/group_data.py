@@ -23,7 +23,7 @@ def group_by_id(videos: pd.DataFrame):
 
 def main():
     data_path = os.path.join("..", "youtube_data_with_new_id")
-    grouped_data_path = os.path.join("..", "youtube_grouped")
+    grouped_data_path = os.path.join("..", "youtube_grouped_by_id")
     os.makedirs(grouped_data_path, exist_ok=True)
     names = os.listdir(data_path)
     for name in names:

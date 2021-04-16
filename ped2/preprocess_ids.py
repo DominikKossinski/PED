@@ -20,7 +20,7 @@ def extract_id(video_id, link) -> str:
 
 
 def preprocess_ids(new_data_dir: str, file_name: str) -> None:
-    videos = pd.read_csv(os.path.join("../youtube_data", file_name), sep=";")
+    videos = pd.read_csv(os.path.join("..", "ped1_data", file_name), sep=";")
     videos["new_video_id"] = videos.apply(lambda x: extract_id(x["video_id"], x["thumbnail_link"]), axis=1)
     videos.to_csv(os.path.join(new_data_dir, file_name), sep=";")
 
