@@ -3,10 +3,12 @@ import os
 
 
 def get_categories_dict() -> dict:
-    file_names = list(filter(lambda name: ".json" in name, os.listdir("../youtube_data")))
+    path = os.path.dirname(__file__)
+    path = os.path.join(path, "..", "youtube_data")
+    file_names = list(filter(lambda name: ".json" in name, os.listdir(path)))
     categories_dict = dict()
     for name in file_names:
-        with open(os.path.join("..", "youtube_data", name), "r") as file:
+        with open(os.path.join(path, name), "r") as file:
             categories = json.load(file)
             file.close()
         for category in categories["items"]:
