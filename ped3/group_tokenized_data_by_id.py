@@ -45,6 +45,10 @@ def main(args) -> None:
         print(f"{name}: {len(tokenized)}")
         tokenized_list.append(tokenized)
 
+    domains = load_tokenized_text(os.path.join("..", "domains", "domains.json"))
+    tokenized_list.append(domains)
+    tokenized_names.append("domains")
+
     for videos in videos_list:
         for i, name in enumerate(tokenized_names):
             videos[f"tokenized_{name}"] = tokenized_list[i][:len(videos)]
