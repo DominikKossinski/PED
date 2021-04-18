@@ -24,7 +24,6 @@ def load_csv(dir_name: str) -> List[pd.DataFrame]:
     path = os.path.dirname(__file__)
     path = os.path.join(path, "..", dir_name)
     names = sorted(get_csv_files(path))
-    print(names)
     frames = []
     for name in names:
         frames.append(pd.read_csv(os.path.join(path, name), sep=";", index_col=0))
