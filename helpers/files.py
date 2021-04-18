@@ -18,3 +18,14 @@ def save_csv(dir_name: str, frames: List[pd.DataFrame], names: List[str]) -> Non
     os.makedirs(path, exist_ok=True)
     for df, name in zip(frames, names):
         df.to_csv(os.path.join(path, f"{name}.csv"), sep=";")
+
+
+def load_csv(dir_name: str) -> List[pd.DataFrame]:
+    path = os.path.dirname(__file__)
+    path = os.path.join(path, "..", dir_name)
+    names = sorted(get_csv_files(path))
+    print(names)
+    frames = []
+    for name in names:
+        frames.append(pd.read_csv(os.path.join(path, name), sep=";", index_col=0))
+    return frames

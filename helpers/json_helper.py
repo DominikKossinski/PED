@@ -17,9 +17,9 @@ def save_grouped_tokenized(path: str, data: List[List[List[str]]]) -> None:
 
 
 def save_frequent_tokens_dict(name: str, frequent_tokens: dict) -> None:
-    path = os.path.dirname(__file__)
-    path = os.path.join(path, "..", "frequent_tokens")
-    os.makedirs(path, exist_ok=True)
+        path = os.path.dirname(__file__)
+        path = os.path.join(path, "..", "frequent_tokens")
+        os.makedirs(path, exist_ok=True)
     with open(os.path.join(path, f"{name}.json"), "w") as file:
         json.dump(frequent_tokens, file)
         file.close()
