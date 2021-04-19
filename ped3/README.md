@@ -16,6 +16,12 @@ python download_categories.py
 
 ```
 
+## Uporządkowanie danych z poprzednich etapów
+
+Jupyter notebook *data_clean_up* zawiera kod dopisujący do zbioru atrybuty tekstowe, które
+zostały poddane analizie pod względem rozróżniania kategorii filmów.
+
+
 Skrypt *group_tokenized_data_by_id.py* grupuje dane tekstowe uzyskane w pierwszym etapie, które zostały poddane
 tokenizacji. Dane grupowane są wg wygenerowanego identyfikatora z linka do url.
 

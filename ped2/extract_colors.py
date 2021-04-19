@@ -21,7 +21,6 @@ def run_colors(df: pd.DataFrame, export_path: str):
 
 
 if __name__ == '__main__':
-    # TODO less colors
     size = ImageSize.maxresdefault.value
     images_path = os.path.join("..", "images")
     full_path = os.path.join("..", "colors", size)

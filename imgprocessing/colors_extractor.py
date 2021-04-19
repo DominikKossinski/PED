@@ -1,5 +1,7 @@
+import os
 from typing import Tuple
 
+import matplotlib.pyplot as plt
 import numpy as np
 
 from PIL import Image
@@ -527,6 +529,48 @@ def get_colors():
     ]
 
 
+def get_basic_colors_array():
+    return np.array([
+        (0, 0, 0),
+        (255, 255, 255),
+        (255, 0, 0),
+        (0, 255, 0),
+        (0, 0, 255),
+        (255, 255, 0),
+        (0, 255, 255),
+        (255, 0, 255),
+        (192, 192, 192),
+        (128, 128, 128),
+        (128, 0, 0),
+        (128, 128, 0),
+        (0, 128, 0),
+        (128, 0, 128),
+        (0, 128, 128),
+        (0, 0, 128)
+    ])
+
+
+def get_basic_colors():
+    return [
+        [(0, 0, 0), "Black"],
+        [(255, 255, 255), "White"],
+        [(255, 0, 0), "Red"],
+        [(0, 255, 0), "Lime"],
+        [(0, 0, 255), "Blue"],
+        [(255, 255, 0), "Yellow"],
+        [(0, 255, 255), "Cyan"],
+        [(255, 0, 255), "Magenta"],
+        [(192, 192, 192), "Silver"],
+        [(128, 128, 128), "Gray"],
+        [(128, 0, 0), "Maroon"],
+        [(128, 128, 0), "Olive"],
+        [(0, 128, 0), "Green"],
+        [(128, 0, 128), "Purple"],
+        [(0, 128, 128), "Teal"],
+        [(0, 0, 128), "Navy"],
+    ]
+
+
 def tuple_to_hex(tuple: Tuple[int, int, int]):
     return '#%02x%02x%02x' % tuple
 
@@ -537,13 +581,48 @@ def get_nearest_color_index(color, colors_array):
 
 
 def get_image_color(image_path: str, colors_array: np.ndarray, colors_list):
-    im = Image.open(image_path)
+    path = os.path.dirname(__file__)
+    path = os.path.join(path, "..", image_path)
+    im = Image.open(path)
     im = im.convert('RGB')
     width, height = im.size
     im = im.resize((int(width / 4), int(height / 4)))
     width, height = im.size
     pixels = width * height
 
+    colors = im.getcolors(maxcolors=1_000_000)
+    colors_counts = np.zeros(colors_array.shape[0])
+    for c in colors:
+        nearest_color_index = get_nearest_color_index(colors_array, np.array(c[1]))
+        colors_counts[nearest_color_index] += c[0]
+    max_indexes = np.argsort(-colors_counts)[:5]
+    max_colors = list(map(lambda x: (colors_list[x], colors_counts[x]), max_indexes))
+    return max_colors
+
+
+def get_cropped_image_color(image_path: str, colors_array: np.ndarray, colors_list):
+    path = os.path.dirname(__file__)
+    path = os.path.join(path, "..", image_path)
+    im = Image.open(path)
+    im = im.convert('RGB')
+    width, height = im.size
+    im = im.resize((int(width / 4), int(height / 4)))
+    # plt.imshow(im)
+    # plt.show()
+
+    width, height = im.size
+    horizontal_margin = (width - int(0.6 * width)) // 2
+    left = horizontal_margin
+    right = width - horizontal_margin
+    vertical_margin = (height - int(0.6 * height)) // 2
+    top = vertical_margin
+    bottom = height - vertical_margin
+    im = im.crop((left, top, right, bottom))
+    pixels = width * height
+
+    # plt.imshow(im)
+    # plt.show()
+    # exit(0)
     colors = im.getcolors(maxcolors=1_000_000)
     colors_counts = np.zeros(colors_array.shape[0])
     for c in colors:
