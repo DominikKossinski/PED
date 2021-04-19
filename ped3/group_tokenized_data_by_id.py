@@ -41,11 +41,11 @@ def main(args) -> None:
         videos_list.append(pd.read_csv(os.path.join(data_path, name), sep=";", index_col=0))
     tokenized_list = []
     for name in tokenized_names:
-        tokenized = load_tokenized_text(os.path.join("..", "tokenized", f"tokenized_{name}.json"))
+        tokenized = load_tokenized_text(f"tokenized_{name}")
         print(f"{name}: {len(tokenized)}")
         tokenized_list.append(tokenized)
 
-    domains = load_tokenized_text(os.path.join("..", "domains", "domains.json"))
+    domains = load_tokenized_text("domains")
     tokenized_list.append(domains)
     tokenized_names.append("domains")
 
@@ -67,7 +67,7 @@ def main(args) -> None:
                 lambda x: [eval(i) for i in x])
             print(len(grouped_videos[f"tokenized_{name}"]))
             save_grouped_tokenized(
-                os.path.join("..", "tokenized", f"{c}_grouped_{name}.json"),
+                f"{c}_grouped_{name}",
                 grouped_videos[f"tokenized_{name}"].tolist()
             )
 

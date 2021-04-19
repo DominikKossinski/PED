@@ -3,14 +3,18 @@ import os
 from typing import List
 
 
-def load_tokenized_text(path: str) -> List[List[str]]:
+def load_tokenized_text(file_name: str) -> List[List[str]]:
+    path = os.path.dirname(__file__)
+    path = os.path.join(path, "..", "tokenized", f"{file_name}.json")
     with open(path, "r") as file:
         tokenized = json.load(file)
         file.close()
     return tokenized
 
 
-def save_grouped_tokenized(path: str, data: List[List[List[str]]]) -> None:
+def save_grouped_tokenized(file_name: str, data: List[List[str]]) -> None:
+    path = os.path.dirname(__file__)
+    path = os.path.join(path, "..", "tokenized", f"{file_name}.json")
     with open(path, "w") as file:
         json.dump(data, file)
         file.close()
