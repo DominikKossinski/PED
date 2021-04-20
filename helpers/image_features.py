@@ -52,7 +52,15 @@ def get_entr_score(img):
     return entr_score
 
 
-def get_vevo(img):
-    text = lower(pytesseract.image_to_string(img))
-    if txt.find("vevo") != -1: return True
+# def get_vevo(img):
+#     text = pytesseract.image_to_string(img)
+#     text = text.lower()
+#     if text.find("vevo") != -1: return True
+#     else: return False
+
+def get_vevo(text):
+    # text = pytesseract.image_to_string(img)
+    text = str(text)
+    text = text.lower()
+    if text.find("vevo") != -1: return True
     else: return False
