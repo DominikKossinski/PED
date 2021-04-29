@@ -28,7 +28,7 @@ zostały uporządkowane atrybuty poddawane ocenie.
 
 Podsumowanie etapu znajduje się w notebooku.
 
-## Etap 4 - Uczenie pół-nadzorowanego
+## Etap 4 - Wykorzystanie uczenia pół-nadzorowanego
 
 ## Etap 5 - Zbieranie danych nie-trending
 
