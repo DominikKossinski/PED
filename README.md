@@ -7,6 +7,7 @@ Pliki z rozwiązaniami poszczególnych etapów znajdują się w folderze *notebo
 - ETAP 1 - **PED_1.ipynb**
 - ETAP 2 - **PED_2.ipynb**
 - ETAP 3 - **PED_3.ipynb**
+- ETAP 4 - **PED_4.ipynb**
 
 ## Etap 1 - Atrybuty tekstowe
 
