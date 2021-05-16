@@ -92,6 +92,66 @@ def add_tfidf_args(name: str) -> pd.DataFrame:
     print(f"Tfidf: {tf_idf.shape}")
     return tf_idf
 
+def load_videos_with_tf_idf():
+    gb_data, us_data = load_csv("clustering_data")
+    videos = pd.concat([gb_data, us_data])
+    # TODO check categories -> missing 43 add to note book
+    videos["category_id"] = videos["category_id"].replace(43.0, 24.0)
+
+
+    videos = videos.reset_index(drop=True)
+
+    tf_idf_list = []
+    names = ["channel_titles", "descriptions", "titles"]
+    for name in names:
+        df = add_tfidf_args(name)[videos["new_category_id"].notna()].reset_index(drop=True)
+        tf_idf_list.append(df)
+
+    videos = videos[videos["new_category_id"].notna()]
+    videos = videos.reset_index(drop=True)
+
+    categories_ids = videos["new_category_id"].dropna().unique().tolist()
+    categories_dict = get_categories_dict()
+
+    videos["tags"] = videos["tags"].apply(lambda x: " ".join(eval(x)[0].split("|")) if eval(x) else "")
+    vectorizer = TfidfVectorizer(max_features=200)
+    x_tags = vectorizer.fit_transform(videos["tags"])
+
+    selected_columns = [
+        "views", "likes", "dislikes", "comment_count", "description_len", "title_len", "channel_title_len",
+        "publish_time_day_of_week", "publish_time_hour_of_day",
+        "gray_mean_score", "color_mean_score", "gray_hist_score",
+        "red_hist_score", "green_hist_score", "blue_hist_score", "edges_score", "entropy_score",
+    ]
+
+    for cat in categories_ids:
+        selected_columns.append(f"freq_channel_titles_{categories_dict[cat]}")
+        selected_columns.append(f"freq_titles_{categories_dict[cat]}")
+        selected_columns.append(f"freq_tags_{categories_dict[cat]}")
+        selected_columns.append(f"freq_descriptions_{categories_dict[cat]}")
+
+    y_hat = videos["new_category_id"]  # oczekiwane kategorie z api
+    y_hat_nans = videos["category_id"]  # oczekiwane kategorie z nanami (z oryginalnego zbioru)
+
+    videos = videos[selected_columns]
+    x_tags = pd.DataFrame.sparse.from_spmatrix(x_tags)
+    videos = pd.concat([videos, x_tags], axis=1)
+    for n, i in zip(names, tf_idf_list):
+        print(i.shape)
+        videos = pd.concat([videos, i], axis=1)
+
+    videos = videos.replace([np.inf, -np.inf], np.nan)
+    videos = videos.fillna(videos.mean())
+
+    scaler = MinMaxScaler()
+    videos = scaler.fit_transform(videos)
+
+    videos = np.nan_to_num(videos)
+
+    return videos
+    # x_not_nan = videos[y_hat_nans.notna()]
+    # y_not_nan = y_hat_nans[y_hat_nans.notna()]
+
 
 def main(args) -> None:
     gb_data, us_data = load_csv("clustering_data")
@@ -99,6 +159,9 @@ def main(args) -> None:
     # TODO check categories -> missing 43 add to note book
     videos["category_id"] = videos["category_id"].replace(43.0, 24.0)
     print(f"Videos: {videos.shape}")
+
+    print(videos[videos["category_id"] == 29.0])
+    exit(-15)
 
     videos = videos.reset_index(drop=True)
 
