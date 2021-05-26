@@ -38,5 +38,7 @@ Podsumowanie etapu znajduje się w notebooku.
 
 Poszczególne skrypty etapu znajdują się w folderze *ped5* wraz z opisem w pliku *README.md*.
 
+Podsumowanie etapu znajduje się w notebooku.
+
 ## Etap 6 - Klasyfikator, reguły, profil charakterystyczny i wiedza
 
