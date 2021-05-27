@@ -50,7 +50,7 @@ from helpers.files import load_csv, save_csv
 
 def setup_args_parser() -> ArgumentParser:
     args_parser = ArgumentParser()
-    args_parser.add_argument("--region-code", help="Region code (GB or US)", default="GB")
+    args_parser.add_argument("--region-code", help="Region code (GB or US)", default="US")
     # args_parser.add_argument("--published_after", help="Format: yyyy-MM-ddTHH:mm:ssZ", type=str,
     #                          default="2017-11-01T00:00:00Z")
     # args_parser.add_argument("--published_before", help="Format: yyyy-MM-ddTHH:mm:ssZ", type=str,
@@ -229,7 +229,6 @@ def download_data(region_code: str, category_ids: list, nums: list) -> None:
             next_page_token = ""
             while i < num and next_page_token is not None:
                 i += 1
-                # while next_page_token is not None and total_count < 100:
                 try:
                     link = f"https://www.googleapis.com/youtube/v3/search?" \
                            f"chart=mostPopular&" \
@@ -244,13 +243,13 @@ def download_data(region_code: str, category_ids: list, nums: list) -> None:
                            f"key={api_key}"
                     print(link)
 
-                    # response = requests.get(link) # TODO uncomment
+                    response = requests.get(link) # TODO uncomment
                     requests_count += 1
                     # print(response)
                     body = get_mock_body() # TODO comment
-                    # body = response.content.decode("utf-8") # TODO uncomment
-                    # body = json.loads(body) # TODO uncomment
-                    if True: #response.status_code == 200: # TODO uncomment
+                    body = response.content.decode("utf-8") # TODO uncomment
+                    body = json.loads(body) # TODO uncomment
+                    if response.status_code == 200: # TODO uncomment
                         print(body)
                         page_info = body.get("pageInfo", dict())
                         print(f"TotalResults: {page_info.get('totalResults', None)}")
