@@ -207,8 +207,7 @@ def main(args):
     nums = get_categories_nums(category_ids)
     print(nums)
     print(f"Sum: {sum(nums) * len(get_time_intervals())}")
-    download_data("GB", category_ids, nums)
-    # us_data = download_data("US")
+    download_data(args["region_code"], category_ids, nums)
 
 
 def download_data(region_code: str, category_ids: list, nums: list) -> None:
