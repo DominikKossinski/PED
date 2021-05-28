@@ -8,6 +8,7 @@ Pliki z rozwiązaniami poszczególnych etapów znajdują się w folderze *notebo
 - ETAP 2 - **PED_2.ipynb**
 - ETAP 3 - **PED_3.ipynb**
 - ETAP 4 - **PED_4.ipynb**
+- ETAP 5 - **PED_5.ipynb**
 
 ## Etap 1 - Atrybuty tekstowe
 
@@ -24,14 +25,20 @@ Podsumowanie etapu znajduje się w wymienionym notebooku.
 Poszczególne skrypty znajdują się w folderze *ped3* wraz z opisem w pliku
 *README.md*.
 
-Na potrzeby tego etapu został także dodany dodatkowy jupyter notebook, w którym
-zostały uporządkowane atrybuty poddawane ocenie.
+Na potrzeby tego etapu został także dodany dodatkowy jupyter notebook, w którym zostały uporządkowane atrybuty poddawane
+ocenie.
 
 Podsumowanie etapu znajduje się w notebooku.
 
 ## Etap 4 - Wykorzystanie uczenia pół-nadzorowanego
 
+Podsumowanie etapu znajduje się w notebooku.
+
 ## Etap 5 - Zbieranie danych nie-trending
+
+Poszczególne skrypty etapu znajdują się w folderze *ped5* wraz z opisem w pliku *README.md*.
+
+Podsumowanie etapu znajduje się w notebooku.
 
 ## Etap 6 - Klasyfikator, reguły, profil charakterystyczny i wiedza
 
