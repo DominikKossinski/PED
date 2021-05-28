@@ -1,6 +1,21 @@
+import json
+import os
+import traceback
+from typing import Optional
+
+import pandas as pd
+import requests
+from tqdm import tqdm
+
+from helpers.files import load_csv, save_csv
+
+
 def download_video_details(video_id: str, region_code: str) -> Optional[dict]:
     api_key = os.getenv("API_KEY")
-    link = f"https://www.googleapis.com/youtube/v3/videos?id={video_id}&part=snippet%2Cstatistics&key={api_key}"
+    link = f"https://www.googleapis.com/youtube/v3/videos?id={video_id}&" \
+           f"regionCode={region_code}&" \
+           f"part=snippet%2Cstatistics&" \
+           f"key={api_key}"
     try:
         response = requests.get(link)
         if response.status_code != 200:
@@ -58,3 +73,54 @@ def download_video_details(video_id: str, region_code: str) -> Optional[dict]:
         traceback.print_exc()
         print(f"Error by getting video ({video_id}): {e}")
         return None
+
+
+def get_data(region_code: str):
+    if region_code == "GB":
+        data, _ = load_csv("ped5_data")
+    elif region_code == "US":
+        _, data = load_csv("ped5_data")
+    else:
+        raise ValueError(f"No country {region_code}")
+    return data["video_id"]
+
+
+def download_videos(region_code: str) -> None:
+    data_ids = get_data(region_code)
+    print(data_ids)
+
+    mapped_items = {
+        "video_id": [],
+        "title": [],
+        "channel_title": [],
+        "category_id": [],
+        "publish_time": [],
+        "tags": [],
+        "views": [],
+        "likes": [],
+        "dislikes": [],
+        "comment_count": [],
+        "thumbnail_link": [],
+        "comments_disabled": [],
+        "ratings_disabled": [],
+        "video_error_or_removed": [],
+        "description": []
+    }
+    for item_id in tqdm(data_ids):
+        item = download_video_details(item_id, region_code)
+        # print(item)
+        if item is None:
+            continue
+        for key in item.keys():
+            mapped_items[key].append(item[key])
+    mapped_items = pd.DataFrame(data=mapped_items)
+    save_csv("ped5_full_data", [mapped_items], [f"{region_code}_videos"])
+
+
+def main():
+    download_videos("GB")
+    download_videos("US")
+
+
+if __name__ == '__main__':
+    main()
