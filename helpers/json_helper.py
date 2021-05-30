@@ -3,6 +3,15 @@ import os
 from typing import List
 
 
+def load_json_file(file_path: str):
+    path = os.path.dirname(__file__)
+    path = os.path.join(path, file_path)
+    with open(path, "r") as file:
+        content = json.load(file)
+        file.close()
+    return content
+
+
 def load_tokenized_text(file_name: str) -> List[List[str]]:
     path = os.path.dirname(__file__)
     path = os.path.join(path, "..", "tokenized", f"{file_name}.json")
