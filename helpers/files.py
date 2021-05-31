@@ -28,3 +28,9 @@ def load_csv(dir_name: str) -> List[pd.DataFrame]:
     for name in names:
         frames.append(pd.read_csv(os.path.join(path, name), sep=";", index_col=0))
     return frames
+
+
+def load_csv_file(file_path: str):
+    path = os.path.dirname(__file__)
+    path = os.path.join(path, "..", file_path)
+    return pd.read_csv(path, sep=";", index_col=0)
