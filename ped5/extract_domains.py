@@ -39,8 +39,8 @@ def extract_domains(tokenized_descriptions: List[List[str]], csv_path: str, json
     return domains_counts
 
 
-def main():
-    dir_path = os.path.join(os.path.dirname(__file__), "..", "non_trending")
+def process_dir(dir_name: str, save_dir_name: str):
+    dir_path = os.path.join(os.path.dirname(__file__), "..", save_dir_name)
     os.makedirs(dir_path, exist_ok=True)
 
     json_path = os.path.join(dir_path, "tokenized")
@@ -49,7 +49,7 @@ def main():
     os.makedirs(words_path, exist_ok=True)
 
     attr = "description"
-    gb_data, us_data = load_csv("ped5_full_data")
+    gb_data, us_data = load_csv(dir_name)
     for data, code in zip([gb_data, us_data], ["GB", "US"]):
         tokenized_path = os.path.join(json_path, f"{code}_{attr}.json")
         tokenized_descriptions = load_json_file(tokenized_path)
@@ -58,8 +58,9 @@ def main():
         domains_counts = extract_domains(tokenized_descriptions, csv_file_path, json_file_path)
         print(len(data), len(domains_counts))
         data["movie_domains_count"] = domains_counts["movie_domains_count"]
-    save_csv("ped5_full_data", [gb_data, us_data], ["GB_videos", "US_videos"])
+    save_csv(dir_name, [gb_data, us_data], ["GB_videos", "US_videos"])
 
 
 if __name__ == '__main__':
-    main()
+    process_dir("ped5_non_trending", "non_trending")
+    process_dir("ped5_trending", "trending")

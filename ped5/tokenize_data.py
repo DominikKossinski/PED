@@ -49,10 +49,10 @@ def tokenize(csv_path: str, df: pd.DataFrame, attr_name: str, json_path: str):
     return words_counts
 
 
-def main():
-    gb_data, us_data = load_csv("ped5_full_data")
+def process_dir(dir_name: str, save_dir_name: str):
+    gb_data, us_data = load_csv(dir_name)
 
-    dir_path = os.path.join(os.path.dirname(__file__), "..", "non_trending")
+    dir_path = os.path.join(os.path.dirname(__file__), "..", save_dir_name)
     os.makedirs(dir_path, exist_ok=True)
 
     json_path = os.path.join(dir_path, "tokenized")
@@ -66,6 +66,11 @@ def main():
             json_file_path = os.path.join(json_path, f"{code}_{attr}.json")
             words_file_path = os.path.join(words_path, f"{code}_{attr}.csv")
             tokenize(words_file_path, df, attr, json_file_path)
+
+
+def main():
+    process_dir("ped5_non_trending", "non_trending")
+    process_dir("ped5_trending", "trending")
 
 
 if __name__ == '__main__':

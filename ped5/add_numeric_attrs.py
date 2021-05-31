@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 
 from helpers.files import load_csv, save_csv
@@ -18,13 +17,18 @@ def add_time_attrs(data: pd.DataFrame) -> pd.DataFrame:
     return data
 
 
-def main():
-    gb_data, us_data = load_csv("ped5_full_data")
+def process_dir(dir_name: str, save_dir: str):
+    gb_data, us_data = load_csv(dir_name)
     gb_data = add_len_attrs(gb_data)
     us_data = add_len_attrs(us_data)
     gb_data = add_time_attrs(gb_data)
     us_data = add_time_attrs(us_data)
-    save_csv("ped5_full_data", [gb_data, us_data], ["GB_videos", "US_videos"])
+    save_csv(save_dir, [gb_data, us_data], ["GB_videos", "US_videos"])
+
+
+def main():
+    process_dir("ped5_non_trending", "ped5_non_trending")
+    process_dir("ped5_trending", "ped5_trending")
 
 
 if __name__ == '__main__':
