@@ -1,4 +1,5 @@
 import os
+from typing import Tuple, List
 
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -6,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from helpers.json_helper import load_json_file
 
 
-def add_tfidf_args(name: str, max_features: int) -> pd.DataFrame:
+def add_tfidf_args(name: str, max_features: int) -> Tuple[pd.DataFrame, List]:
 
     tokenized_path = os.path.join(os.path.dirname(__file__), "..", "trending", "tokenized")
     gb_trending_tokens = load_json_file(os.path.join(tokenized_path, f"GB_{name}.json"))
@@ -28,4 +29,4 @@ def add_tfidf_args(name: str, max_features: int) -> pd.DataFrame:
     tf_idf = tf_idf.reset_index(drop=True)
     # print(f"All: {len(data)}")
     # print(f"Tfidf: {tf_idf.shape}")
-    return tf_idf
+    return tf_idf, vectorizer.get_feature_names()
