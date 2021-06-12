@@ -3,6 +3,7 @@ import math
 import os
 
 import pandas as pd
+from tokenizers import Tokenizer
 from tqdm import tqdm
 
 from helpers.files import load_csv
@@ -26,6 +27,8 @@ def tokenize(csv_path: str, df: pd.DataFrame, attr_name: str, json_path: str):
             text = df[attr_name].iloc[i]
             if isinstance(text, str):
                 tokens = text.split("|")
+                tokens = " ".join(tokens)
+                tokens = Tokenizer.tokenize(tokens)
                 tokenized_titles.append(tokens)
                 words = words.append(pd.DataFrame(data={"words": tokens}),
                                      ignore_index=True)
