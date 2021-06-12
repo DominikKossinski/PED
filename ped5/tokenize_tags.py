@@ -3,7 +3,7 @@ import math
 import os
 
 import pandas as pd
-from tokenizers import Tokenizer
+from helpers.tokenizers import Tokenizer
 from tqdm import tqdm
 
 from helpers.files import load_csv
@@ -62,7 +62,7 @@ def process_dir(dir_name: str, save_dir_name: str):
     words_path = os.path.join(dir_path, "words")
     os.makedirs(words_path, exist_ok=True)
 
-    attrs = ["tags", "channel_title", "description"]
+    attrs = ["tags"]
     for attr in attrs:
         for df, code in zip([gb_data, us_data], ["GB", "US"]):
             json_file_path = os.path.join(json_path, f"{code}_{attr}.json")
