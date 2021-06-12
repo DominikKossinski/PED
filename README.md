@@ -9,6 +9,7 @@ Pliki z rozwiązaniami poszczególnych etapów znajdują się w folderze *notebo
 - ETAP 3 - **PED_3.ipynb**
 - ETAP 4 - **PED_4.ipynb**
 - ETAP 5 - **PED_5.ipynb**
+- ETAP 6 - **PED_6.ipynb**
 
 ## Etap 1 - Atrybuty tekstowe
 
@@ -42,3 +43,4 @@ Podsumowanie etapu znajduje się w notebooku.
 
 ## Etap 6 - Klasyfikator, reguły, profil charakterystyczny i wiedza
 
+Podsumowanie etapu znajduje się w notebooku.
