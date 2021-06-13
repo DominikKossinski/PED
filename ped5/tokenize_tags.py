@@ -3,6 +3,7 @@ import math
 import os
 
 import pandas as pd
+from helpers.tokenizers import Tokenizer
 from tqdm import tqdm
 
 from helpers.files import load_csv
@@ -26,6 +27,8 @@ def tokenize(csv_path: str, df: pd.DataFrame, attr_name: str, json_path: str):
             text = df[attr_name].iloc[i]
             if isinstance(text, str):
                 tokens = text.split("|")
+                tokens = " ".join(tokens)
+                tokens = Tokenizer.tokenize(tokens)
                 tokenized_titles.append(tokens)
                 words = words.append(pd.DataFrame(data={"words": tokens}),
                                      ignore_index=True)
@@ -59,7 +62,7 @@ def process_dir(dir_name: str, save_dir_name: str):
     words_path = os.path.join(dir_path, "words")
     os.makedirs(words_path, exist_ok=True)
 
-    attrs = ["tags", "channel_title", "description"]
+    attrs = ["tags"]
     for attr in attrs:
         for df, code in zip([gb_data, us_data], ["GB", "US"]):
             json_file_path = os.path.join(json_path, f"{code}_{attr}.json")
