@@ -3,6 +3,7 @@ import os
 
 import numpy as np
 import pandas as pd
+from langdetect import detect_langs, LangDetectException
 
 from helpers.files import load_csv, save_csv
 
@@ -36,16 +37,37 @@ def filter_dir(tokens_path, save_path, data, attrs, forbidden_tokens, codes=None
     for attr, forbidden in zip(attrs, forbidden_tokens):
         if len(forbidden) == 0:
             continue
-        for mask, code in zip(masks, ["GB", "US"]):
+        for mask, code, df in zip(masks, ["GB", "US"], data):
             json_file_path = os.path.join(json_path, f"{code}_{attr}.json")
             tokens_list = load_tokens(json_file_path)
             for i, tokens in enumerate(tokens_list):
+                # if attr == "title":
+                #     text = df.loc[i][attr]
+                #     # print(type(text))
+                #     # print(text)
+                #     # exit(-123)
+                #     try:
+                #         langs = detect_langs(text)
+                #         max_prob = 0
+                #         lang = None
+                #         for l in langs:
+                #             if l.prob > max_prob:
+                #                 max_prob = l.prob
+                #                 lang = l.lang
+                #         if max_prob > 0.3 and lang != "en":
+                #             mask[i] = mask[i] or True
+                #             print(langs)
+                #             print(text)
+                #             print(lang)
+                #     except LangDetectException:
+                #         print(f"Text: '{text}'")
                 found = False
                 for f in forbidden:
                     if f in tokens:
                         found = True
                         break
                 mask[i] = mask[i] or found
+
     for i in range(len(masks)):
         masks[i] = np.invert(masks[i])
 
@@ -69,13 +91,13 @@ def filter_dir(tokens_path, save_path, data, attrs, forbidden_tokens, codes=None
             save_tokens_list(save_file_path, new_tokens_list)
     new_data = []
     for df, mask in zip(data, masks):
-        new_data.append(df[mask].reset_index(drop=True))
+        new_data.append(df[mask == True].reset_index(drop=True))
     return new_data
 
 
 def main():
     attrs = ["channel_title", "description", "domain", "tags", "title"]
-    forbidden_tokens = [[], [], [], [], ["show", "vevo", "trailer", "comedi", "offici", "ft"]]
+    forbidden_tokens = [["jimmi", "bbc"], [], [], [], ["show", "vevo", "trailer", "comedi", "offici", "ft"]]
 
     gb_non_videos, us_non_videos = load_csv("ped5_non_trending")
     gb_non_filtered, us_non_filtered = filter_dir(
@@ -83,9 +105,11 @@ def main():
     )
     save_csv("ped5_nt_filtered", [gb_non_filtered, us_non_filtered], ["GB_videos", "US_videos"])
 
-    gb_t_videos, us_t_videos = load_csv("ped5_trending")
+    gb_t_videos, us_t_videos = load_csv("ped5_trending_original")
+
+
     gb_t_filtered, us_t_filtered = filter_dir(
-        "trending", "ped5_t_filtered", [gb_t_videos, us_t_videos], attrs, forbidden_tokens
+        "ped5_trending_original", "ped5_t_filtered", [gb_t_videos, us_t_videos], attrs, forbidden_tokens
     )
     save_csv("ped5_t_filtered", [gb_t_filtered, us_t_filtered], ["GB_videos", "US_videos"])
 

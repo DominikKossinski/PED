@@ -18,7 +18,10 @@ if __name__ == '__main__':
                           "views", "likes", "dislikes", "comment_count", "thumbnail_link", "comments_disabled",
                           "ratings_disabled", "video_error_or_removed", "description", "description_len", "title_len",
                           "channel_title_len", "publish_time_day_of_week", "publish_time_hour_of_day",
-                          "movie_domains_count"]
+                          "movie_domains_count", "gray_mean_score", "color_mean_score", "gray_hist_score",
+                          "red_hist_score", "green_hist_score",
+                          "blue_hist_score",
+                          "edges_score", "entropy_score"]
 
     gb_videos, us_videos = load_csv("ped3_data")
     trending_videos = pd.concat([gb_videos, us_videos])
@@ -33,4 +36,5 @@ if __name__ == '__main__':
 
     gb_videos = trending_videos.head(len(gb_videos))
     us_videos = trending_videos.tail(len(us_videos))
+    print(list(gb_videos.columns))
     save_csv("ped5_trending_original", [gb_videos, us_videos], ["GB_videos", "US_videos"])
