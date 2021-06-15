@@ -2,7 +2,6 @@ import json
 import math
 import os
 
-import numpy as np
 import pandas as pd
 from numpy import nan
 from tqdm import tqdm

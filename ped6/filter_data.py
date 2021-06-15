@@ -3,7 +3,6 @@ import os
 
 import numpy as np
 import pandas as pd
-from langdetect import detect_langs, LangDetectException
 
 from helpers.files import load_csv, save_csv
 
@@ -97,7 +96,9 @@ def filter_dir(tokens_path, save_path, data, attrs, forbidden_tokens, codes=None
 
 def main():
     attrs = ["channel_title", "description", "domain", "tags", "title"]
-    forbidden_tokens = [["jimmi", "bbc"], [], [], [], ["show", "vevo", "trailer", "comedi", "offici", "ft"]]
+    forbidden_tokens = [["jimmi", "bbc", "la", "de"], ["la", "de"], ["la", "de"],
+                        ["la", "de"],
+                        ["show", "vevo", "trailer", "comedi", "offici", "ft"]]
 
     gb_non_videos, us_non_videos = load_csv("ped5_non_trending")
     gb_non_filtered, us_non_filtered = filter_dir(
@@ -106,7 +107,6 @@ def main():
     save_csv("ped5_nt_filtered", [gb_non_filtered, us_non_filtered], ["GB_videos", "US_videos"])
 
     gb_t_videos, us_t_videos = load_csv("ped5_trending_original")
-
 
     gb_t_filtered, us_t_filtered = filter_dir(
         "ped5_trending_original", "ped5_t_filtered", [gb_t_videos, us_t_videos], attrs, forbidden_tokens
