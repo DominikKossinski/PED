@@ -43,4 +43,9 @@ Podsumowanie etapu znajduje się w notebooku.
 
 ## Etap 6 - Klasyfikator, reguły, profil charakterystyczny i wiedza
 
+Poszczególne skrypty etapu znajdują się w folderze *ped6-* wraz z opisem w pliku *README.md*.
+
+Na potrzeby tego etapu został także przygotowany dodatkowy jypyter notebook, który porządkuje
+dane, które zostały po procesie filtrowania wybranych rodzajów filmów.
+
 Podsumowanie etapu znajduje się w notebooku.
