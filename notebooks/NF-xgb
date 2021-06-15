@@ -1,0 +1,221 @@
+digraph {
+    graph [ rankdir=TB ]
+
+    0 [ label="description_tfidf_de<0.329858571" ]
+    0 -> 1 [label="yes, missing" color="#0000FF"]
+    0 -> 2 [label="no" color="#FF0000"]
+
+    1 [ label="edges_score<0.513907075" ]
+    1 -> 3 [label="yes, missing" color="#0000FF"]
+    1 -> 4 [label="no" color="#FF0000"]
+
+    3 [ label="channel_title_len<0.313559324" ]
+    3 -> 7 [label="yes, missing" color="#0000FF"]
+    3 -> 8 [label="no" color="#FF0000"]
+
+    7 [ label="description_tfidf_www<0.608224034" ]
+    7 -> 15 [label="yes, missing" color="#0000FF"]
+    7 -> 16 [label="no" color="#FF0000"]
+
+    15 [ label="title_tfidf_offici<0.177801907" ]
+    15 -> 27 [label="yes, missing" color="#0000FF"]
+    15 -> 28 [label="no" color="#FF0000"]
+
+    27 [ label="tags_tfidf_comedi<0.201664791" ]
+    27 -> 45 [label="yes, missing" color="#0000FF"]
+    27 -> 46 [label="no" color="#FF0000"]
+
+    45 [ label="leaf=-0.0102564115" ]
+
+    46 [ label="leaf=0.295833349" ]
+
+    28 [ label="description_tfidf_subscrib<0.172331691" ]
+    28 -> 47 [label="yes, missing" color="#0000FF"]
+    28 -> 48 [label="no" color="#FF0000"]
+
+    47 [ label="leaf=0.385835707" ]
+
+    48 [ label="leaf=-0.00895522442" ]
+
+    16 [ label="description_tfidf_follow<0.114667714" ]
+    16 -> 29 [label="yes, missing" color="#0000FF"]
+    16 -> 30 [label="no" color="#FF0000"]
+
+    29 [ label="description_tfidf_www<0.73720926" ]
+    29 -> 49 [label="yes, missing" color="#0000FF"]
+    29 -> 50 [label="no" color="#FF0000"]
+
+    49 [ label="leaf=0.103225812" ]
+
+    50 [ label="leaf=-0.377375603" ]
+
+    30 [ label="description_tfidf_http<0.595304012" ]
+    30 -> 51 [label="yes, missing" color="#0000FF"]
+    30 -> 52 [label="no" color="#FF0000"]
+
+    51 [ label="leaf=-0.480478108" ]
+
+    52 [ label="leaf=0.24000001" ]
+
+    8 [ label="title_tfidf_video<0.219381288" ]
+    8 -> 17 [label="yes, missing" color="#0000FF"]
+    8 -> 18 [label="no" color="#FF0000"]
+
+    17 [ label="tags_tfidf_comedi<0.177999586" ]
+    17 -> 31 [label="yes, missing" color="#0000FF"]
+    17 -> 32 [label="no" color="#FF0000"]
+
+    31 [ label="title_tfidf_ft<0.665279746" ]
+    31 -> 53 [label="yes, missing" color="#0000FF"]
+    31 -> 54 [label="no" color="#FF0000"]
+
+    53 [ label="leaf=-0.317999989" ]
+
+    54 [ label="leaf=0.317647099" ]
+
+    32 [ label="description_tfidf_twitter<0.118919216" ]
+    32 -> 55 [label="yes, missing" color="#0000FF"]
+    32 -> 56 [label="no" color="#FF0000"]
+
+    55 [ label="leaf=0.320000023" ]
+
+    56 [ label="leaf=-0.120000005" ]
+
+    18 [ label="title_len<0.345360816" ]
+    18 -> 33 [label="yes, missing" color="#0000FF"]
+    18 -> 34 [label="no" color="#FF0000"]
+
+    33 [ label="description_tfidf_music<0.253857255" ]
+    33 -> 57 [label="yes, missing" color="#0000FF"]
+    33 -> 58 [label="no" color="#FF0000"]
+
+    57 [ label="leaf=-0.342857182" ]
+
+    58 [ label="leaf=0.150000006" ]
+
+    34 [ label="description_tfidf_www<0.550919175" ]
+    34 -> 59 [label="yes, missing" color="#0000FF"]
+    34 -> 60 [label="no" color="#FF0000"]
+
+    59 [ label="leaf=0.360000014" ]
+
+    60 [ label="leaf=-0.24000001" ]
+
+    4 [ label="edges_score<0.514060736" ]
+    4 -> 9 [label="yes, missing" color="#0000FF"]
+    4 -> 10 [label="no" color="#FF0000"]
+
+    9 [ label="leaf=0.598526716" ]
+
+    10 [ label="channel_title_len<0.364406765" ]
+    10 -> 19 [label="yes, missing" color="#0000FF"]
+    10 -> 20 [label="no" color="#FF0000"]
+
+    19 [ label="title_len<0.551546335" ]
+    19 -> 35 [label="yes, missing" color="#0000FF"]
+    19 -> 36 [label="no" color="#FF0000"]
+
+    35 [ label="description_tfidf_www<0.596035004" ]
+    35 -> 61 [label="yes, missing" color="#0000FF"]
+    35 -> 62 [label="no" color="#FF0000"]
+
+    61 [ label="leaf=0.162386253" ]
+
+    62 [ label="leaf=-0.112401061" ]
+
+    36 [ label="channel_title_len<0.0762711912" ]
+    36 -> 63 [label="yes, missing" color="#0000FF"]
+    36 -> 64 [label="no" color="#FF0000"]
+
+    63 [ label="leaf=0.201869175" ]
+
+    64 [ label="leaf=-0.084036693" ]
+
+    20 [ label="description_tfidf_com<0.57308048" ]
+    20 -> 37 [label="yes, missing" color="#0000FF"]
+    20 -> 38 [label="no" color="#FF0000"]
+
+    37 [ label="description_tfidf_http<0.71103543" ]
+    37 -> 65 [label="yes, missing" color="#0000FF"]
+    37 -> 66 [label="no" color="#FF0000"]
+
+    65 [ label="leaf=-0.334821463" ]
+
+    66 [ label="leaf=0.182608694" ]
+
+    38 [ label="description_tfidf_http<0.104279131" ]
+    38 -> 67 [label="yes, missing" color="#0000FF"]
+    38 -> 68 [label="no" color="#FF0000"]
+
+    67 [ label="leaf=-0.163636371" ]
+
+    68 [ label="leaf=0.360000014" ]
+
+    2 [ label="title_tfidf_offici<0.210423708" ]
+    2 -> 5 [label="yes, missing" color="#0000FF"]
+    2 -> 6 [label="no" color="#FF0000"]
+
+    5 [ label="description_tfidf_subscrib<0.0763528645" ]
+    5 -> 11 [label="yes, missing" color="#0000FF"]
+    5 -> 12 [label="no" color="#FF0000"]
+
+    11 [ label="tags_tfidf_movi<0.126104042" ]
+    11 -> 21 [label="yes, missing" color="#0000FF"]
+    11 -> 22 [label="no" color="#FF0000"]
+
+    21 [ label="tags_tfidf_offici<0.257552415" ]
+    21 -> 39 [label="yes, missing" color="#0000FF"]
+    21 -> 40 [label="no" color="#FF0000"]
+
+    39 [ label="title_tfidf_war<0.33409369" ]
+    39 -> 69 [label="yes, missing" color="#0000FF"]
+    39 -> 70 [label="no" color="#FF0000"]
+
+    69 [ label="leaf=-0.562189043" ]
+
+    70 [ label="leaf=0.150000006" ]
+
+    40 [ label="edges_score<0.388137698" ]
+    40 -> 71 [label="yes, missing" color="#0000FF"]
+    40 -> 72 [label="no" color="#FF0000"]
+
+    71 [ label="leaf=-0.24000001" ]
+
+    72 [ label="leaf=0.381818205" ]
+
+    22 [ label="description_tfidf_com<0.426685512" ]
+    22 -> 41 [label="yes, missing" color="#0000FF"]
+    22 -> 42 [label="no" color="#FF0000"]
+
+    41 [ label="leaf=-0.0545454584" ]
+
+    42 [ label="leaf=0.360000014" ]
+
+    12 [ label="description_tfidf_twitter<0.134061977" ]
+    12 -> 23 [label="yes, missing" color="#0000FF"]
+    12 -> 24 [label="no" color="#FF0000"]
+
+    23 [ label="leaf=0.400000036" ]
+
+    24 [ label="leaf=-0.120000005" ]
+
+    6 [ label="edges_score<0.592040539" ]
+    6 -> 13 [label="yes, missing" color="#0000FF"]
+    6 -> 14 [label="no" color="#FF0000"]
+
+    13 [ label="leaf=0.485714316" ]
+
+    14 [ label="color_mean_score<0.498184681" ]
+    14 -> 25 [label="yes, missing" color="#0000FF"]
+    14 -> 26 [label="no" color="#FF0000"]
+
+    25 [ label="leaf=0.150000006" ]
+
+    26 [ label="color_mean_score<0.632824779" ]
+    26 -> 43 [label="yes, missing" color="#0000FF"]
+    26 -> 44 [label="no" color="#FF0000"]
+
+    43 [ label="leaf=-0.272727281" ]
+
+    44 [ label="leaf=-0" ]
+}
